@@ -12,12 +12,12 @@ public class ItemBuilder {
 		this.sellIn = 0;
 	}
 
-	public ItemBuilder called(String name) {
+	public ItemBuilder name(String name) {
 		this.name = name;
 		return this;
 	}
 
-	public ItemBuilder ofQuality(int quality) {
+	public ItemBuilder quality(int quality) {
 		this.quality = quality;
 		return this;
 	}

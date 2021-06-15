@@ -1,152 +1,153 @@
 package com.gildedrose;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GildedRoseTest {
 
-    @Test
-    void lowers_quality_and_sellIn_values_of_every_item_at_the_end_of_each_day() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Any Item").toBeSoldIn(10).ofQuality(10).build() };
-        GildedRose gildedRose = new GildedRose(items);
+    GildedRose gildedRose;
 
-        gildedRose.updateQuality();
-
-        assertEquals(9, gildedRose.items[0].sellIn);
-        assertEquals(9, gildedRose.items[0].quality);
+    @BeforeEach
+    void setup(){
+        gildedRose = new GildedRose();
     }
 
     @Test
-    void lowers_quality_twice_as_fast_when_past_expiration_date() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Any Item").pastExpirationDate().ofQuality(10).build() };
-        GildedRose gildedRose = new GildedRose(items);
+    void lowers_quality_and_sellIn_values_of_every_item_at_the_end_of_each_day() {
+        Item[] items = new Item[] { new ItemBuilder().name("Any Item").toBeSoldIn(10).quality(10).build() };
 
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(-1, gildedRose.items[0].sellIn);
-        assertEquals(8, gildedRose.items[0].quality);
+        assertEquals(9, gildedRose.getItems()[0].sellIn);
+        assertEquals(9, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void never_lowers_quality_value_below_zero() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Any Item").toBeSoldIn(10).ofQuality(0).build() };
-        GildedRose gildedRose = new GildedRose(items);
+    void lowers_quality_twice_as_fast_when_past_expiration_date() {
+        Item[] items = new Item[] { new ItemBuilder().name("Any Item").pastExpirationDate().quality(10).build() };
 
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(9, gildedRose.items[0].sellIn);
-        assertEquals(0, gildedRose.items[0].quality);
+        assertEquals(-1, gildedRose.getItems()[0].sellIn);
+        assertEquals(8, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void increases_aged_brie_quality_at_the_end_of_each_day() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Aged Brie").toBeSoldIn(10).ofQuality(10).build() };
-        GildedRose gildedRose = new GildedRose(items);
+    void never_lowers_quality_value_below_zero() {
+        Item[] items = new Item[] { new ItemBuilder().name("Any Item").toBeSoldIn(10).quality(0).build() };
 
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(9, gildedRose.items[0].sellIn);
-        assertEquals(11, gildedRose.items[0].quality);
+        assertEquals(9, gildedRose.getItems()[0].sellIn);
+        assertEquals(0, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void never_increases_aged_brie_quality_above_50() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Aged Brie").toBeSoldIn(10).ofQuality(50).build() };
-        GildedRose gildedRose = new GildedRose(items);
+    void increases_aged_brie_quality_at_the_end_of_each_day() {
+        Item[] items = new Item[] { new ItemBuilder().name("Aged Brie").toBeSoldIn(10).quality(10).build() };
 
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(9, gildedRose.items[0].sellIn);
-        assertEquals(50, gildedRose.items[0].quality);
+        assertEquals(9, gildedRose.getItems()[0].sellIn);
+        assertEquals(11, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void never_lowers_sulfuras_quality_and_sellIn_values() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Sulfuras, Hand of Ragnaros").toBeSoldIn(10).ofQuality(10).build() };
-        GildedRose gildedRose = new GildedRose(items);
+    void never_increases_aged_brie_quality_above_50() {
+        Item[] items = new Item[] { new ItemBuilder().name("Aged Brie").toBeSoldIn(10).quality(50).build() };
 
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(10, gildedRose.items[0].sellIn);
-        assertEquals(10, gildedRose.items[0].quality);
+        assertEquals(9, gildedRose.getItems()[0].sellIn);
+        assertEquals(50, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void increases_backstage_passes_quality_at_the_end_of_each_day() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Backstage passes to a TAFKAL80ETC concert").toBeSoldIn(20).ofQuality(10).build() };
-        GildedRose gildedRose = new GildedRose(items);
-
+    void never_lowers_sulfuras_quality_and_sellIn_values() {
+        Item[] items = new Item[] { new ItemBuilder().name("Sulfuras, Hand of Ragnaros").toBeSoldIn(10).quality(10).build() };
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(19, gildedRose.items[0].sellIn);
-        assertEquals(11, gildedRose.items[0].quality);
+        assertEquals(10, gildedRose.getItems()[0].sellIn);
+        assertEquals(10, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void never_increases_backstage_passes_quality_above_50() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Backstage passes to a TAFKAL80ETC concert").toBeSoldIn(20).ofQuality(50).build() };
-        GildedRose gildedRose = new GildedRose(items);
+    void increases_backstage_passes_quality_at_the_end_of_each_day() {
+        Item[] items = new Item[] { new ItemBuilder().name("Backstage passes to a TAFKAL80ETC concert").toBeSoldIn(20).quality(10).build() };
 
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(19, gildedRose.items[0].sellIn);
-        assertEquals(50, gildedRose.items[0].quality);
+        assertEquals(19, gildedRose.getItems()[0].sellIn);
+        assertEquals(11, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void increases_backstage_passes_quality_twice_as_fast_when_sellIn_value_is_equal_or_less_than_10() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Backstage passes to a TAFKAL80ETC concert").toBeSoldIn(10).ofQuality(10).build() };
-        GildedRose gildedRose = new GildedRose(items);
-
+    void never_increases_backstage_passes_quality_above_50() {
+        Item[] items = new Item[] { new ItemBuilder().name("Backstage passes to a TAFKAL80ETC concert").toBeSoldIn(20).quality(50).build() };
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(9, gildedRose.items[0].sellIn);
-        assertEquals(12, gildedRose.items[0].quality);
+        assertEquals(19, gildedRose.getItems()[0].sellIn);
+        assertEquals(50, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void increases_backstage_passes_quality_thrice_as_fast_when_sellIn_value_is_equal_or_less_than_5() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Backstage passes to a TAFKAL80ETC concert").toBeSoldIn(5).ofQuality(10).build() };
-        GildedRose gildedRose = new GildedRose(items);
-
+    void increases_backstage_passes_quality_twice_as_fast_when_sellIn_value_is_equal_or_less_than_10() {
+        Item[] items = new Item[] { new ItemBuilder().name("Backstage passes to a TAFKAL80ETC concert").toBeSoldIn(10).quality(10).build() };
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(4, gildedRose.items[0].sellIn);
-        assertEquals(13, gildedRose.items[0].quality);
+        assertEquals(9, gildedRose.getItems()[0].sellIn);
+        assertEquals(12, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void lowers_backstage_passes_quality_to_zero_when_past_expiration_date() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Backstage passes to a TAFKAL80ETC concert").pastExpirationDate().ofQuality(10).build() };
-        GildedRose gildedRose = new GildedRose(items);
-
+    void increases_backstage_passes_quality_thrice_as_fast_when_sellIn_value_is_equal_or_less_than_5() {
+        Item[] items = new Item[] { new ItemBuilder().name("Backstage passes to a TAFKAL80ETC concert").toBeSoldIn(5).quality(10).build() };
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(-1, gildedRose.items[0].sellIn);
-        assertEquals(0, gildedRose.items[0].quality);
+        assertEquals(4, gildedRose.getItems()[0].sellIn);
+        assertEquals(13, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void lowers_conjured_mana_cake_quality_twice_as_fast() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Conjured Mana Cake").toBeSoldIn(10).ofQuality(10).build() };
-        GildedRose gildedRose = new GildedRose(items);
-
+    void lowers_backstage_passes_quality_to_zero_when_past_expiration_date() {
+        Item[] items = new Item[] { new ItemBuilder().name("Backstage passes to a TAFKAL80ETC concert").pastExpirationDate().quality(10).build() };
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(9, gildedRose.items[0].sellIn);
-        assertEquals(8, gildedRose.items[0].quality);
+        assertEquals(-1, gildedRose.getItems()[0].sellIn);
+        assertEquals(0, gildedRose.getItems()[0].quality);
     }
 
     @Test
-    void never_lowers_conjured_mana_cake_quality_below_zero() throws Exception {
-        Item[] items = new Item[] { new ItemBuilder().called("Conjured Mana Cake").toBeSoldIn(10).ofQuality(0).build() };
-        GildedRose gildedRose = new GildedRose(items);
-
+    void lowers_conjured_mana_cake_quality_twice_as_fast() {
+        Item[] items = new Item[] { new ItemBuilder().name("Conjured Mana Cake").toBeSoldIn(10).quality(10).build() };
+        gildedRose.setItems(items);
         gildedRose.updateQuality();
 
-        assertEquals(9, gildedRose.items[0].sellIn);
-        assertEquals(0, gildedRose.items[0].quality);
+        assertEquals(9, gildedRose.getItems()[0].sellIn);
+        assertEquals(8, gildedRose.getItems()[0].quality);
+    }
+
+    @Test
+    void never_lowers_conjured_mana_cake_quality_below_zero() {
+        Item[] items = new Item[] { new ItemBuilder().name("Conjured Mana Cake").toBeSoldIn(10).quality(0).build() };
+        gildedRose.setItems(items);
+        gildedRose.updateQuality();
+
+        assertEquals(9, gildedRose.getItems()[0].sellIn);
+        assertEquals(0, gildedRose.getItems()[0].quality);
     }
 
 }
