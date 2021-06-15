@@ -33,10 +33,10 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.maven-surefire-plugin.version}</version>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
