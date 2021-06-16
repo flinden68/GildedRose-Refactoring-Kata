@@ -3,7 +3,7 @@ package com.gildedrose.model;
 import com.gildedrose.Item;
 
 /**
- * will decrease in quality twice as fast a default item
+ * will decrease in quality twice as fast a categorized item
  */
 public class ConjuredItem extends CategorizedItem {
 	protected void updateExpired(Item item) {

@@ -15,8 +15,8 @@ class GildedRose {
             // first determine what kind of items we are dealing with
             CategorizedItem categorizedItem = itemCategorizer.categorizeItems(item);
 
-            //run the update functionality
-            categorizedItem.updateOneItem(item);
+            //update an item
+            categorizedItem.updateItem(item);
         }
     }
 

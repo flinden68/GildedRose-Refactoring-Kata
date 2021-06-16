@@ -17,8 +17,9 @@ public class ItemCategorizer {
 		if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
 			return new BackstagePassItem();
 		}
-		if (item.name.startsWith("Conjured"))
+		if (item.name.startsWith("Conjured")) {
 			return new ConjuredItem();
+		}
 		return new CategorizedItem();
 	}
 

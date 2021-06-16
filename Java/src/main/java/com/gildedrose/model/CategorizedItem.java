@@ -3,7 +3,7 @@ package com.gildedrose.model;
 import com.gildedrose.Item;
 
 /**
- * For a not special item, with basic rules. Never higher as 50 and lower as 0. And normal decrease of quality
+ * For not a special item, with basic rules. Never higher as 50 and lower as 0. And normal decrease of quality
  */
 public class CategorizedItem {
 	protected void incrementQuality(Item item) {
@@ -25,7 +25,7 @@ public class CategorizedItem {
 	protected void updateQuality(Item item) {
 		decrementQuality(item);
 	}
-	public void updateOneItem(Item item) {
+	public void updateItem(Item item) {
 		updateQuality(item);
 		updateSellIn(item);
 		if (item.sellIn < 0) {

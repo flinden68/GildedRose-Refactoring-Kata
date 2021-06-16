@@ -3,7 +3,7 @@ package com.gildedrose.model;
 import com.gildedrose.Item;
 
 /**
- * will increase in quality if times
+ * will increase in quality if times pass on
  */
 public class CheeseItem extends CategorizedItem {
 	protected void updateExpired(Item item) {
